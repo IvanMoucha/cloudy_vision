@@ -43,6 +43,16 @@ def call_vision_api(image_filename, api_keys):
                         "type": "SAFE_SEARCH_DETECTION",
                         "maxResults": 10
                     },
+                    {
+                        "type": "TEXT_DETECTION"
+                    },
+                    {
+                        "type": "IMAGE_PROPERTIES"
+                    },
+                    {
+                        "type": "WEB_DETECTION"
+                    },
+                    
                 ]
             }
         ]
@@ -72,5 +82,14 @@ def get_standardized_result(api_result):
         output['logo_tags'] = []
         for annotation in api_result['logoAnnotations']:
             output['logo_tags'].append((annotation['description'], annotation['score']))
+
+    if 'webDetection' in api_result:
+        if 'webEntities' in api_result['webDetection']:
+            output['web_entities'] = []
+            for entity in api_result['webDetection']['webEntities']:
+                try:
+                    output['web_entities'].append((entity['description'], entity['score']))
+                except Exception as e:
+                    print(e, flush=True)
 
     return output
