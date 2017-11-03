@@ -2,11 +2,13 @@ import base64
 import json
 import requests
 
+
 def _convert_image_to_base64(image_filename):
     with open(image_filename, 'rb') as image_file:
         encoded_string = base64.b64encode(image_file.read()).decode()
 
     return encoded_string
+
 
 def call_vision_api(image_filename, api_keys):
     api_key = api_keys['google']
@@ -15,35 +17,35 @@ def call_vision_api(image_filename, api_keys):
     base64_image = _convert_image_to_base64(image_filename)
 
     post_payload = {
-      "requests": [
-        {
-          "image": {
-            "content" : base64_image
-          },
-          "features": [
+        "requests": [
             {
-              "type": "LABEL_DETECTION",
-              "maxResults": 10
-            },
-            {
-              "type": "FACE_DETECTION",
-              "maxResults": 10
-            },
-            {
-              "type": "LANDMARK_DETECTION",
-              "maxResults": 10
-            },
-            {
-              "type": "LOGO_DETECTION",
-              "maxResults": 10
-            },
-            {
-              "type": "SAFE_SEARCH_DETECTION",
-              "maxResults": 10
-            },
-          ]
-        }
-      ]
+                "image": {
+                    "content": base64_image
+                },
+                "features": [
+                    {
+                        "type": "LABEL_DETECTION",
+                        "maxResults": 10
+                    },
+                    {
+                        "type": "FACE_DETECTION",
+                        "maxResults": 10
+                    },
+                    {
+                        "type": "LANDMARK_DETECTION",
+                        "maxResults": 10
+                    },
+                    {
+                        "type": "LOGO_DETECTION",
+                        "maxResults": 10
+                    },
+                    {
+                        "type": "SAFE_SEARCH_DETECTION",
+                        "maxResults": 10
+                    },
+                ]
+            }
+        ]
     }
 
     result = requests.post(post_url, json=post_payload)
@@ -55,7 +57,7 @@ def call_vision_api(image_filename, api_keys):
 # See this function in microsoft.py for docs.
 def get_standardized_result(api_result):
     output = {
-        'tags' : [],
+        'tags': [],
     }
 
     api_result = api_result['responses'][0]

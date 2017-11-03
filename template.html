@@ -21,10 +21,6 @@
         <div class="twelve columns">
 
         <h2>Cloudy Vision Output</h2>
-        <p>
-            Cloudy Vision is a tool to help compare computer vision API vendors. <a href="https://goberoi.com/comparing-the-top-five-computer-vision-apis-98e3e3d7c647">See this blog post</a> and the <a href="https://github.com/goberoi/cloudy_vision">Github page</a> for details.
-        </p>
-
         <h4>Results Summary</h4>
         <p>
             <b>On {{ process_date.strftime('%b %d, %Y') }}, {{ num_images }} images were processed across {{ num_vendors }} vendors</b>: {{ vendor_names }}.
@@ -76,7 +72,7 @@
                 </span>
             </td>
           </tr>
-          {% for feature_name, feature_results in vendor['standardized_result'].iteritems() %}
+          {% for feature_name, feature_results in vendor['standardized_result'].items() %}
           <tr>
               <td class="result_name">
                   {{ vendor['vendor_name'] }}_{{ feature_name }}
@@ -135,7 +131,7 @@
                 On time taken, and number of tags returned. Note that Cloudsight returns captions, not a list of tags, so those counts appear as zero.
             </p>
             <table class="u-full-width">
-                {% for vendor, stats in vendor_stats.iteritems() %}
+                {% for vendor, stats in vendor_stats.items() %}
                 {% if loop.first %}
                 <tr class="raw_json">
                     <td class="result_name">Vendor</td>
